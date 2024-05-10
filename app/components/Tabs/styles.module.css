@@ -1,0 +1,32 @@
+@import '@radix-ui/colors/gray.css';
+
+/* 
+*/
+.tab_list {
+  position: relative;
+  display: flex;
+  background-color: var(--gray-3);
+  border-radius: 6px;
+  padding: 3px;
+}
+
+/* 
+*/
+.tab_button {
+  flex: 1;
+  position: relative;
+  border: 0;
+  background-color: transparent;
+  padding: 6px 10px;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+
+  &[data-state="active"] {
+    background-color: #fff;
+  }
+}
+
+/* 
+*/
+.tab_content {}

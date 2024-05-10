@@ -1,0 +1,120 @@
+/* 
+@tag: div
+@component: Container
+*/
+.container {
+  position: relative;
+  padding: 20px 50px;
+}
+
+/* 
+@tag: h1
+@component: Title
+*/
+.title {
+  font-size: 1.4rem;
+  font-weight: 500;
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+/* 
+@tag: div
+@component: Row
+*/
+.row {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(auto, 300px);
+  column-gap: 30px;
+}
+
+/* 
+@tag: article
+@component: LocationCard
+active?: true active
+*/
+.location-card {
+  padding: 0 30px;
+
+  & + & {
+    border-left: 1px solid hsl(0, 15%, 90%);
+  }
+
+  & > h2 {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+    font-size: 1.1rem;
+    font-weight: 500;
+    line-height: 1.5;
+    text-align: center;
+    margin-bottom: 10px;
+  }
+
+  & > h2::after {
+    --size: 8px;
+    content: '';
+    height: var(--size);
+    width: var(--size);
+    background: transparent;
+    border-radius: 999px;
+  }
+
+  &.active > h2::after {
+    background: hsl(225, 75%, 60%);
+  }
+
+  & > h3 {
+    font-size: 0.8rem;
+    font-weight: 500;
+    line-height: 1.2;
+    color: hsl(0, 0%, 40%);
+    margin: 20px 0 12px 0;
+  }
+}
+
+/* 
+@tag: div
+@component: Item
+*/
+.item {
+  display: flex;
+  align-items: center;
+  column-gap: 10px;
+
+  & > p {
+    font-size: 0.9rem;
+  }
+
+  & + & {
+    margin-top: 15px;
+  }
+}
+
+/* 
+@tag: img
+@component: Picture
+height?: 26px --height
+*/
+.picture {
+  --height: 26px;
+  height: var(--height);
+  object-fit: contain;
+}
+
+/* 
+@tag: span
+@component: Icon
+src: unset --src
+size?: 16px --size
+*/
+.icon {
+  --size: 16px;
+  height: var(--size);
+  width: var(--size);
+  background-image: var(--src);
+  background-size: contain;
+}

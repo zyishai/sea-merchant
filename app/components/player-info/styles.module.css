@@ -1,0 +1,78 @@
+/* 
+@tag: div
+@component: Container
+*/
+.container {
+  position: relative;
+  background-color: #fff;
+  z-index: 2;
+
+  & > *:not(hr) {
+    padding: 0 20px;
+  }
+}
+
+/* 
+@tag: h1
+@component: Title
+variant?: primary | secondary
+*/
+.title {
+  font-size: 1.6rem;
+  font-weight: 300;
+  line-height: 1.6;
+  color: hsl(0, 15%, 25%);
+
+  &.secondary {
+    font-size: 1rem;
+    line-height: 1.1;
+    font-weight: 600;
+    color: hsl(0, 15%, 10%);
+  }
+
+  .entry + & {
+    margin-top: 40px;
+  }
+
+  & + .entry {
+    margin-top: 15px;
+  }
+}
+
+/* 
+@tag: article
+@component: Entry
+*/
+.entry {
+  display: flex;
+  align-items: center;
+  column-gap: 18px;
+
+  & > p {
+    font-size: 1.2rem;
+  }
+
+  & + & {
+    margin-top: 20px;
+  }
+}
+
+/* 
+@tag: img
+@component: Picture
+height?: 36px --height
+*/
+.picture {
+  --height: 36px;
+  height: var(--height);
+  object-fit: contain;
+}
+
+/* 
+@tag: hr
+@component: Separator
+*/
+.separator {
+  border-top: 1px solid hsl(0, 10%, 95%);
+  margin: 15px 0;
+}

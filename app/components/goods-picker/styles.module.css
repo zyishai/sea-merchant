@@ -1,0 +1,59 @@
+/* 
+@tag: div
+@component: Container
+*/
+.container {
+  display: flex;
+  gap: 30px;
+}
+
+/* 
+@tag: article
+@component: ProductItem
+selected?: true
+*/
+.product-item {
+  --transition-duration: .2s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 1px solid hsl(0, 15%, 90%);
+  border-radius: 8px;
+  background-color: transparent;
+  padding: 10px 20px;
+  transition: box-shadow var(--transition-duration);
+  cursor: pointer;
+
+  &.selected {
+    border-color: hsl(225, 75%, 60%);
+    outline: 1px solid hsl(225, 75%, 60%);
+  }
+
+  & > h3 {
+    text-align: center;
+    font-weight: 400;
+    margin-bottom: 8px;
+  }
+
+  & > .image {
+    margin-top: 10px;
+  }
+
+  &:hover {
+    box-shadow: inset 0 0 6px -1px hsl(0, 15%, 90%);
+  }
+
+  &:active {
+    box-shadow: inset 0 0 10px -1px hsl(0, 15%, 90%);
+  }
+}
+
+/* 
+@tag: img
+@component: Image
+*/
+.image {
+  height: 44px;
+  background-image: var(--src);
+  background-size: contain;
+}

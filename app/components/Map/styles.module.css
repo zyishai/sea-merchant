@@ -1,0 +1,45 @@
+/* 
+@tag: div
+@component: PerspectiveContainer
+*/
+.perspective_container {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
+  perspective: 999px;
+}
+
+/* 
+@tag: div
+@component: Map
+*/
+.map {
+  position: relative;
+}
+
+/* 
+*/
+.map_flag {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  translate: -50% -50%;
+  height: 116px;
+  transform-style: preserve-3d;
+}
+
+/*
+color?: #000 --color
+*/
+.country_name {
+  --color: #000;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  translate: -50% calc(-50% - 165px);
+  font-size: 3rem;
+  font-weight: 700;
+  color: var(--color);
+  mix-blend-mode: difference;
+}

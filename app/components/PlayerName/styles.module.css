@@ -1,0 +1,17 @@
+@import '@radix-ui/colors/gray.css';
+
+/* 
+@tag: h1
+@component: Name
+*/
+.player_name {
+  font-size: 1.5rem;
+  font-weight: 500;
+  line-height: 1.5;
+  color: var(--gray-12);
+  padding: 0 30px;
+
+  @media screen and (min-width: 1280px) {
+    padding: 0 60px;
+  }
+}

@@ -1,0 +1,142 @@
+/* 
+@tag: div
+@component: Container
+*/
+.container {
+  padding: 30px 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+
+  & > h1 {
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: #000;
+  }
+
+  & > h1 + .location-picker {
+    margin: 30px 0;
+  }
+}
+
+/* 
+@tag: div
+@component: LocationPicker
+*/
+.location-picker {
+  display: flex;
+  gap: 30px;
+}
+
+/* 
+@tag: div
+@component: LocationOption
+color: string --bg
+selected?: true
+*/
+.location-option {
+  --transition-duration: .2s;
+  border: none;
+  background-color: transparent;
+  padding: 10px;
+  cursor: pointer;
+  
+  & > h3 {
+    text-align: center;
+    font-weight: 400;
+    margin-bottom: 8px;
+    transition: color var(--transition-duration);
+  }
+  
+  & svg {
+    height: 88px;
+    width: auto;
+    transition: fill var(--transition-duration);
+  }
+  
+  &:hover svg, &.selected svg {
+    fill: var(--bg);
+  }
+  
+  &:hover > h3, &.selected h3 {
+    color: var(--bg);
+  }
+}
+
+/* 
+@tag: section
+@component: Section
+m?: 10px --margin
+my?: 10px --margin-vertical
+mx?: 10px --margin-horizontal
+flex?: true
+*/
+.section {
+  --margin: 10px;
+  margin: var(--margin-vertical, var(--margin)) var(--margin-horizontal, var(--margin));
+
+
+  &.flex {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  * + * {
+    margin-top: 8px;
+  }
+
+  & > input[type=number] {
+    width: 100%;
+    padding: 4px 6px;
+    border-radius: 2px;
+    border: none;
+    outline: 1px solid #999;
+  }
+}
+
+/* 
+@tag: button
+@component: CtaButton
+*/
+.cta-button {
+  appearance: none;
+  padding: 10px 20px;
+  border: 1px solid hsl(0, 15%, 90%);
+  border-radius: 8px;
+  background-color: hsl(240, 50%, 35%);
+  color: #fff;
+  cursor: pointer;
+  transition: box-shadow .2s;
+
+  &:hover {
+    box-shadow: 0 0 14px -3px hsl(240, 15%, 90%);
+  }
+
+  &:active {
+    box-shadow: 0 0 6px -3px hsl(240, 15%, 90%);
+  }
+}
+
+/* 
+@tag: button
+@component: CancelButton
+*/
+.cancel-button {
+  appearance: none;
+  padding: 10px 20px;
+  border: 1px solid hsl(0, 15%, 90%);
+  border-radius: 8px;
+  background-color: transparent;
+  cursor: pointer;
+  transition: box-shadow .2s;
+
+  &:hover {
+    box-shadow: 0 0 14px -3px hsl(0, 15%, 90%);
+  }
+
+  &:active {
+    box-shadow: 0 0 6px -3px hsl(0, 15%, 90%);
+  }
+}

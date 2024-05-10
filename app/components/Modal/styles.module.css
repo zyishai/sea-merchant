@@ -1,0 +1,71 @@
+@import '@radix-ui/colors/black-alpha.css';
+@import '@radix-ui/colors/mauve.css';
+
+/*
+*/
+.modal__overlay {
+  position: fixed;
+  inset: 0;
+  background-color: var(--black-a9);
+  z-index: 998;
+}
+
+/* 
+*/
+.modal__card {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 999;
+}
+
+/* 
+*/
+.modal__content {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 6px;
+  box-shadow: 0 4px 16px -12px var(--black-a10);
+}
+
+/* 
+*/
+.modal__title {
+  margin: 0;
+  font-weight: 600;
+  color: var(--mauve-12);
+  font-size: 17px;
+}
+
+/* 
+*/
+.modal__description {
+  margin: 10px 0 20px;
+  color: var(--mauve-11);
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+/*
+*/
+.modal__close {
+  appearance: none;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  border: none;
+  cursor: pointer;
+  color: var(--black-a6);
+  background-color: #ffffff8f;
+  border-radius: 999px;
+  height: 20px;
+  width: 20px;
+  display: grid;
+  place-content: center;
+  transition: color, background-color 0.2s;
+
+  &:hover {
+    color: var(--black-a7);
+    background-color: #fff;
+  }
+}

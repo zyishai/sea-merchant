@@ -1,0 +1,113 @@
+@import '@radix-ui/colors/gray.css';
+@import '@radix-ui/colors/blue.css';
+@import '@radix-ui/colors/gold.css';
+@import '@radix-ui/colors/black-alpha.css';
+
+/* 
+@tag: section
+@component: Container
+*/
+.section_container {
+  padding: 0 12px;
+
+  @media screen and (min-width: 1280px) {
+    padding: 0 20px;
+  }
+}
+
+/* 
+@tag: small
+@component: Heading
+*/
+.section_heading {
+  font-size: 0.9rem;
+  line-height: 1.4;
+  color: var(--gray-11);
+}
+
+/* 
+@tag: div
+@component: Group
+gap?: 15px --gap
+*/
+.section_group {
+  --gap: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap);
+  margin: 22px 0;
+
+  &:first-of-type {
+    margin-top: 10px;
+  }
+}
+
+/* 
+@tag: small
+@component: Title
+*/
+.section_group__title {
+  font-size: 0.8rem;
+  line-height: 1.2;
+  color: var(--gray-11);
+}
+
+/* 
+@tag: article
+@component: Item
+gap?: 10px --gap
+*/
+.section_item {
+  --gap: 10px;
+  display: flex;
+  align-items: center;
+  gap: var(--gap);
+}
+
+/* 
+@tag: img
+@component: SvgImage
+size?: 26px --size
+*/
+.section_image {
+  --size: 26px;
+  height: var(--size);
+  width: var(--size);
+}
+
+/* 
+*/
+.tooltip_content {
+  background-color: #fff;
+  color: var(--blue-11);
+  border-radius: 4px;
+  padding: 10px 14px;
+  font-size: 0.8rem;
+  line-height: 1;
+  box-shadow: 0 8px 16px -10px var(--black-a5), 0 10px 20px -12px var(--black-a6);
+  outline: 1px solid var(--gray-2);
+  z-index: 500;
+
+  & > span > svg {
+    fill: #fff;
+  }
+}
+
+/* 
+@tag: div
+@component: PriceTableGrid
+*/
+.price_table_grid {
+  display: grid;
+  grid-template-columns: repeat(4, auto);
+  grid-template-rows: auto repeat(3, 1fr);
+  grid-auto-flow: column;
+  row-gap: 20px;
+  column-gap: 25px;
+  align-items: center;
+
+  & > div:not(:first-of-type) {
+    font-weight: 100;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+  }
+}

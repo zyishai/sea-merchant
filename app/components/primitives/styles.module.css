@@ -1,0 +1,259 @@
+@import '@radix-ui/colors/black-alpha.css';
+@import '@radix-ui/colors/gray.css';
+@import '@radix-ui/colors/blue.css';
+@import '@radix-ui/colors/gold.css';
+@import '@radix-ui/colors/red.css';
+@import '@radix-ui/colors/jade.css';
+
+/* 
+@tag: main
+@component: FullHeightContainer
+*/
+.container {
+  height: 100%;
+  display: grid;
+  place-content: center;
+}
+
+/* 
+@tag: main
+@component: FixedColumnLayout
+fixedColumnMinWidth?: auto --min-col-min-width
+*/
+.fixed_column_layout {
+  /* --min-col-min-width: auto; */
+  display: flex;
+  /* grid-template-columns: var(--min-col-min-width) 1fr; */
+}
+
+/* 
+@tag: div
+@component: LeftColumn
+*/
+.fixed_left_column {
+  position: relative;
+  padding: 17px 0;
+  box-shadow: 4px 0 10px -2px var(--black-a1);
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+}
+
+/* 
+@tag: div
+@component: RightColumn
+*/
+.right_column {
+  flex: 1;
+  position: relative;
+  z-index: 3;
+}
+
+/* 
+@tag: hr
+@component: Separator
+margin?: 5px --margin
+m?: 5px --margin
+width?: auto --width
+color?: --gray-6 --color
+*/
+.separator {
+  margin: var(--margin, 5px) 0;
+  width: var(--width, auto);
+  border: 0.5px solid var(--color, var(--gray-6));
+
+  @media screen and (min-width: 1280px) {
+    --margin: 18px;
+  }
+}
+
+/* 
+@tag: button
+@component: Button
+size?: small | normal | big
+variant?: primary | secondary | outline
+color?: blue | gold | red | jade | black | white
+*/
+.button {
+  --color: transparent;
+  --hover-color: transparent;
+  --text-color: #000;
+  --border-color: transparent;
+  border: none;
+  background-color: transparent;
+  padding: 10px 28px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color .2s;
+
+  &:disabled {
+    background-color: var(--gray-9) !important;
+    cursor: not-allowed !important;
+  }
+
+  &.small {
+    padding: 8px 12px;
+    font-size: 0.8rem;
+  }
+
+  &.big {
+    padding: 12px 30px;
+    font-size: 1rem;
+  }
+
+  &.blue { 
+    --color: var(--blue-9);
+    --hover-color: var(--blue-10);
+    --text-color: #fff;
+  }
+  &.gold {
+    --color: var(--gold-9);
+    --hover-color: var(--gold-10);
+    --text-color: #fff;
+  }
+  &.red {
+    --color: var(--red-9);
+    --hover-color: var(--red-10);
+    --text-color: #fff;
+  }
+  &.jade {
+    --color: var(--jade-9);
+    --hover-color: var(--jade-10);
+    --text-color: #fff;
+  }
+  &.black {
+    --color: var(--black-a9);
+    --hover-color: #000;
+    --text-color: #fff;
+  }
+  &.white {
+    --color: #fff;
+    --hover-color: #fff;
+    --text-color: #000;
+  }
+
+  &.primary {
+    background-color: var(--color);
+    color: var(--text-color);
+
+    &:hover {
+      background-color: var(--hover-color);
+    }
+  }
+
+  &.secondary {
+    background-color: var(--gray-4);
+    color: var(--text-color);
+
+    &:hover {
+      background-color: var(--gray-5);
+    }
+  }
+}
+
+/* 
+@tag: div
+@component: BorderedCard
+padding?: 20px --padding
+image?: url("/old-paper.svg") --image
+mode?: whiteCast | none
+*/
+.bordered_card {
+  position: relative;
+  border: 1px solid transparent;
+  border-image: var(--image, url("/old-paper.svg")) 10 fill;
+  /* -webkit-mask-box-image: url("/old-paper.svg") 10; */
+  /* mask-border: url("/old-paper.svg") 10; */
+  border-image-width: 10;
+  padding: var(--padding, 20px);
+  filter: drop-shadow(-8px -8px 3px var(--black-a3));
+
+  &.whiteCast {
+    &::after {
+      content: '';
+      position: absolute;
+      inset: 30px;
+      background-color: #fff;
+      opacity: 0.6;
+      filter: blur(10px);
+      z-index: -1;
+    }
+  }
+}
+
+/* 
+@tag: img
+@component: ImageIcon
+height?: 20px --height
+width?: unset --width
+size?: unset --size
+*/
+.image_icon {
+  --size: unset;
+  --height: 20px;
+  --width: unset;
+  height: var(--size, var(--height));
+  width: var(--size, var(--width));
+}
+
+/* 
+@tag: div
+@component: FlexRow
+inline?: start | center
+gap?: unset --gap
+padding?: unset --padding
+margin?: unset --margin
+*/
+.flex_row {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--gap, unset);
+  padding: var(--padding, unset);
+  margin: var(--margin, unset);
+
+  &.center {
+    align-items: center;
+  }
+}
+
+/* 
+@tag: div
+@component: CenteredColumn
+inline?: start | center | stretch
+gap?: unset --gap
+padding?: unset --padding
+margin?: unset --margin
+*/
+.centered_column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--gap, unset);
+  padding: var(--padding, unset);
+  margin: var(--margin, unset);
+
+  &.start {
+    align-items: flex-start;
+  }
+  &.stretch {
+    align-items: stretch;
+  }
+}
+
+/*
+@tag: div
+@component: AbsolutePosition
+inset?: unset --inset
+top?: unset --top 
+right?: unset --right 
+left?: unset --left 
+bottom?: unset --bottom 
+*/
+.absolute_position {
+  position: absolute;
+  inset: var(--inset, unset);
+  top: var(--top, unset);
+  right: var(--right, unset);
+  left: var(--left, unset);
+  bottom: var(--bottom, unset);
+}

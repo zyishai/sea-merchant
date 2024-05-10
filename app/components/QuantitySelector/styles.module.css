@@ -1,0 +1,66 @@
+@import '@radix-ui/colors/black-alpha.css';
+@import '@radix-ui/colors/white-alpha.css';
+@import '@radix-ui/colors/jade.css';
+
+/* 
+*/
+.selector {
+  position: relative;
+  user-select: none;
+  touch-action: none;
+  width: 100%;
+  height: 20px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+}
+
+/* 
+*/
+.track {
+  position: relative;
+  flex-grow: 1;
+  height: 100%;
+  border-radius: 4px;
+  background-color: var(--black-a4);
+}
+
+/* 
+@tag: p
+@component: Label
+*/
+.label {
+  position: absolute;
+  height: 16px;
+  width: 100%;
+  padding: 2px 0;
+  text-align: center;
+  line-height: 1;
+  color: #fff;
+  mix-blend-mode: difference;
+}
+
+/* 
+*/
+.range {
+  position: absolute;
+  background-color: var(--jade-8);
+  border-radius: 4px 0 0 4px;
+  height: 100%;
+}
+
+/* 
+*/
+.thumb {
+  position: relative;
+  display: block;
+  width: 2px;
+  height: 20px;
+  background-color: var(--black-a4);
+  cursor: ew-resize;
+
+  &:hover {
+    width: 6px;
+    background-color: var(--black-a6);
+  }
+}

@@ -1,0 +1,168 @@
+/* 
+@tag: div
+@component: Container
+*/
+.container {
+  padding: 30px 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+
+  & > h1 {
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: #000;
+  }
+
+  & > .goods-picker {
+    margin: 30px 0;
+  }
+}
+
+/* 
+@tag: div
+@component: GoodsPicker
+*/
+.goods-picker {
+  display: flex;
+  gap: 30px;
+
+  & + .transaction-container {
+    margin-bottom: 20px;
+  }
+}
+
+/* 
+@tag: article
+@component: Item
+selected?: true
+*/
+.product-item {
+  --transition-duration: .2s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 1px solid hsl(0, 15%, 90%);
+  border-radius: 8px;
+  background-color: transparent;
+  padding: 10px 20px;
+  transition: box-shadow var(--transition-duration);
+  cursor: pointer;
+
+  &.selected {
+    border-color: hsl(225, 75%, 60%);
+    outline: 1px solid hsl(225, 75%, 60%);
+  }
+
+  & > h3 {
+    text-align: center;
+    font-weight: 400;
+    margin-bottom: 8px;
+  }
+
+  & > .image {
+    margin-top: 10px;
+  }
+
+  &:hover {
+    box-shadow: inset 0 0 6px -1px hsl(0, 15%, 90%);
+  }
+
+  &:active {
+    box-shadow: inset 0 0 10px -1px hsl(0, 15%, 90%);
+  }
+}
+
+/* 
+@tag: img
+@component: Image
+*/
+.image {
+  height: 44px;
+  background-image: var(--src);
+  background-size: contain;
+}
+
+/* 
+@tag: div
+@component: TransactionContainer
+*/
+.transaction-container {
+  display: grid;
+  justify-items: center;
+  row-gap: 10px;
+}
+
+/* 
+@tag: div
+@component: TransactionForm
+*/
+.transaction-form {
+  display: flex;
+  gap: 15px;
+  width: 100%;
+
+  & > .field {
+    flex: 1;
+  }
+
+  & > button {
+    border: none;
+    border-radius: 6px;
+    padding: 10px 20px;
+    background-color: hsl(225, 15%, 85%);
+    cursor: pointer;
+    transition: color, background-color .2s;
+
+    &:hover {
+      color: #fff;
+      background-color: hsl(225, 75%, 60%);
+    }
+  }
+}
+
+/* 
+@tag: div
+@component: Field
+*/
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+
+  & > input {
+    border-radius: 4px;
+    border: none;
+    padding: 5px 10px;
+    background-color: hsl(0, 0%, 90%);
+  }
+
+  & > small {
+    font-size: 0.7rem;
+    line-height: 1.1;
+    color: hsl(0, 0%, 50%);
+  }
+}
+
+/* 
+@tag: button
+@component: CancelButton
+*/
+.cancel-button {
+  appearance: none;
+  padding: 10px 20px;
+  border: 1px solid hsl(0, 15%, 90%);
+  border-radius: 8px;
+  background-color: transparent;
+  cursor: pointer;
+  transition: box-shadow .2s;
+
+  &:hover {
+    box-shadow: 0 0 14px -3px hsl(0, 15%, 90%);
+  }
+
+  &:active {
+    box-shadow: 0 0 6px -3px hsl(0, 15%, 90%);
+  }
+}

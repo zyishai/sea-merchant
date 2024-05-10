@@ -1,0 +1,36 @@
+@import '@radix-ui/colors/green.css';
+@import '@radix-ui/colors/black-alpha.css';
+
+/* 
+@tag: div
+@component: Background
+*/
+.background {
+  display: flex;
+  justify-content: center;
+  background-color: var(--black-a10);
+  padding: 6px 14px;
+  border-radius: 5px;
+  border: 1px solid var(--green-10);
+  transition: background-color .2s;
+
+  &:hover {
+    background-color: var(--black-a11);
+  }
+}
+
+/* 
+@tag: span
+@component: Text
+*/
+.text {
+  /* display: block;
+  text-align: center; */
+  font-family: "Poetsen One", sans-serif;
+  font-size: 2rem;
+  line-height: 1.2;
+  font-weight: 900;
+  font-style: normal;
+  color: var(--green-11);
+  font-variant-numeric: tabular-nums;
+}

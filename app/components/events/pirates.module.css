@@ -1,0 +1,145 @@
+/* 
+@tag: div
+@component: EngagementsContainer
+*/
+.engagements-container {
+  flex: 1;
+  margin-top: 30px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* 
+@tag: div
+@component: EngagementActions
+show?: true
+*/
+.engagement-actions {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+
+  &:not(.show) {
+    display: none;
+  }
+}
+
+/* 
+@tag: button
+@component: EngagementOption
+*/
+.engagement-option {
+  appearance: none;
+  font-size: 1rem;
+  background-color: #000;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: background-color .2s;
+
+  &:hover {
+    background-color: #333;
+  }
+}
+
+/*
+@tag: section
+@component: EngagementContent
+*/
+.engagement-content {
+  flex: 1;
+  margin-top: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 6px 16px -10px hsl(0, 0%, 80%);
+  outline: 1px solid hsl(0, 0%, 90%);
+}
+
+/* 
+@tag: div
+@component: EvenlySpaced
+gap?: 10px --gap
+orientation?: vertical | horizontal
+rtl?: true
+align? {
+  start: align-start
+  center: align-center
+  end: align-end
+}
+*/
+.evenly-spaced {
+  --gap: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap);
+
+  &.horizontal {
+    flex-direction: row;
+  }
+
+  &.rtl {
+    flex-direction: column-reverse;
+  }
+
+  &.rtl.horizontal {
+    flex-direction: row-reverse;
+  }
+
+  &.align-center {
+    align-items: center;
+  }
+
+  &.align-end {
+    align-items: flex-end;
+  }
+}
+
+/* 
+@tag: div
+@component: Field
+*/
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+
+  & > input {
+    border-radius: 4px;
+    border: none;
+    padding: 5px 10px;
+    background-color: hsl(0, 0%, 90%);
+  }
+
+  & > small {
+    font-size: 0.7rem;
+    line-height: 1.1;
+    color: hsl(0, 0%, 50%);
+  }
+}
+
+/* 
+@tag: button
+@component: SmallButton
+*/
+.small-button {
+  appearance: none;
+  padding: 10px 20px;
+  border: 1px solid hsl(0, 15%, 90%);
+  border-radius: 8px;
+  background-color: transparent;
+  cursor: pointer;
+  transition: box-shadow .2s;
+
+  &:hover {
+    box-shadow: 0 0 14px -3px hsl(0, 15%, 90%);
+  }
+
+  &:active {
+    box-shadow: 0 0 6px -3px hsl(0, 15%, 90%);
+  }
+}

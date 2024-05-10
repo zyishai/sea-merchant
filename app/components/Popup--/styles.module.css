@@ -1,0 +1,47 @@
+/* 
+@tag: div
+@component: PopupOverlay
+*/
+.modal__overlay {
+  position: fixed;
+  inset: 0;
+  background-color: hsl(0, 0%, 35%);
+  opacity: 0.6;
+}
+
+/* 
+@tag: dialog
+@component: PopupCard
+*/
+.modal__card {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  background-color: white;
+  border: none;
+  padding: 20px;
+  border-radius: 6px;
+  box-shadow: 0 4px 18px -12px hsl(0, 0%, 20%);
+  z-index: 999;
+}
+
+/* 
+@tag: button
+@component: CloseButton
+*/
+.modal__close-button {
+  appearance: none;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  border: none;
+  background: none;
+  color: hsl(0, 5%, 75%);
+  cursor: pointer;
+  transition: color .2s;
+
+  &:hover {
+    color: hsl(0, 5%, 55%);
+  }
+}
