@@ -4,6 +4,34 @@
 @import '@radix-ui/colors/black-alpha.css';
 
 /* 
+@tag: img
+@component: Img
+height?: 20px --height
+width?: unset --width
+size?: unset --size
+*/
+.image {
+  --size: unset;
+  --height: 20px;
+  --width: unset;
+  height: var(--size, var(--height));
+  width: var(--size, var(--width));
+}
+
+/* 
+image?: url("/old-paper.svg") --image
+*/
+.with_border_image {
+  border: 1px solid transparent;
+  border-image: var(--image, url("/old-paper.svg")) 10 fill;
+  /* -webkit-mask-box-image: url("/old-paper.svg") 10; */
+  /* mask-border: url("/old-paper.svg") 10; */
+  border-image-width: 10;
+  padding: var(--padding, 20px);
+  filter: drop-shadow(-8px -8px 3px var(--black-a3));
+}
+
+/* 
 @tag: section
 @component: Container
 */

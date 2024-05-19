@@ -1,31 +1,42 @@
+import { buyWarning, guardShipsWarning, repairWarning, sailWarning, sellWarning } from "~/store/signals";
+import { useAnimationStage } from "../AnimationStage";
+import { useSignal } from "~/hooks/use-signal";
 import { useEffect } from "react";
-import { toast } from "sonner";
-import { useAlerts } from "~/hooks/use-alerts";
-import { useSchedulerStage } from "~/hooks/use-scheduler-stage";
-import { sailWarning } from "~/store/signals";
 
 export function Alerts() {
-  const stage = useSchedulerStage();
-  const alerts = useAlerts([sailWarning]);
+  const stage = useAnimationStage();
+  const [sailAlert] = useSignal(sailWarning);
+  const [guardShipsAlert] = useSignal(guardShipsWarning);
+  const [buyAlert] = useSignal(buyWarning);
+  const [sellAlert] = useSignal(sellWarning);
+  const [repairAlert] = useSignal(repairWarning);
 
   useEffect(() => {
-    stage.current === 'alert' && stage.next();
-    // if (stage.current === 'alert' && !alerts.length) {
-    //   return;
-    // }
+    if (stage.current === 'alert') {
+      stage.next();
+    }
+  }, [stage]);
 
-    // if (alerts.length) {
-    //   alerts.forEach(({ message, dismiss }) => {
-    //     toast.warning(message, {
-    //       onDismiss: dismiss,
-    //       action: {
-    //         label: 'OK',
-    //         onClick: dismiss,
-    //       }
-    //     })
-    //   })
-    // }
-  }, [stage, alerts]);
+  // useEffect(() => {
+  //   if (scheduler.stage === 'alert') {
+  //     scheduler.methods.next();
+  //   }
+  //   // if (stage.current === 'alert' && !alerts.length) {
+  //   //   return;
+  //   // }
+
+  //   // if (alerts.length) {
+  //   //   alerts.forEach(({ message, dismiss }) => {
+  //   //     toast.warning(message, {
+  //   //       onDismiss: dismiss,
+  //   //       action: {
+  //   //         label: 'OK',
+  //   //         onClick: dismiss,
+  //   //       }
+  //   //     })
+  //   //   })
+  //   // }
+  // }, [scheduler.stage, alerts]);
 
   return null;
 }

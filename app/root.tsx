@@ -7,6 +7,7 @@ import {
   ScrollRestoration,
 } from "@remix-run/react";
 import { Toaster } from "sonner";
+import { Theme } from '@radix-ui/themes';
 import styles from '~/styles.css?url';
 
 export const links: LinksFunction = () => [
@@ -23,7 +24,9 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
       </head>
       <body>
-        {children}
+        <Theme accentColor='jade'>
+          {children}
+        </Theme>
         <Toaster richColors />
         <ScrollRestoration />
         <Scripts />

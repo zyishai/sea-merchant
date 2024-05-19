@@ -3,7 +3,7 @@
 // import { randInt } from "~/utils";
 // import random from "random";
 
-import { Action, action, createState, on } from "@holycow/state";
+import { Action, Computed, action, computed, createState, on } from "@holycow/state";
 import { gameStarted, processCommand, weekEnded } from "./signals";
 import { Command } from "./command";
 
@@ -11,6 +11,7 @@ type GameState = {
   started: boolean;
   ended: boolean;
   playerName: string;
+  state: Computed<GameState, 'unset'|'started'|'ended'>;
   startGame: Action<GameState, [string]>;
   run: Action<GameState, [Command]>;
 };
@@ -18,6 +19,7 @@ export const useGame = createState<GameState>({
   started: false,
   ended: false,
   playerName: '',
+  state: computed((state) => state.ended ? 'ended' : state.started ? 'started' : 'unset'),
   startGame: action(({ set }) => (playerName) => {
     set({
       started: true,

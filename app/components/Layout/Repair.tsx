@@ -8,7 +8,8 @@ import { processCommand } from "~/store/signals";
 import { RepairDamage } from "~/store/command";
 
 export function Repair() {
-  const { damage } = useShip();
+  // const { damage } = useShip();
+  const { damage } = { damage: 9 };
   const [amount, setAmount] = useState(1);
 
   useEffect(() => {

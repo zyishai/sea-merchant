@@ -60,6 +60,26 @@ interface StyledContainerProps {
 }
 
 export declare const Container: FC<ComponentProps<'section'>>
+interface StyledWithBorderImageProps {
+  
+  image?: string
+}
+
+export declare const WithBorderImage: FC<ComponentProps<''>>
+interface StyledImgProps {
+  
+  size?: string
+width?: string
+height?: string
+}
+
+export interface ImgProps extends ComponentProps<'img'> {
+  
+  size?: string
+width?: string
+height?: string
+}
+export declare const Img: FC<ImgProps>
 
 interface ClassName {
   'price_table_grid' : StyledPriceTableGridProps
@@ -70,6 +90,8 @@ interface ClassName {
   'section_group' : StyledGroupProps
   'section_heading' : StyledHeadingProps
   'section_container' : StyledContainerProps
+  'with_border_image' : StyledWithBorderImageProps
+  'image' : StyledImgProps
 }
 
 type ApplyStyle = <C extends keyof ClassName, P>(className: C, Component: FC<P>) => FC<P & ClassName[C]>

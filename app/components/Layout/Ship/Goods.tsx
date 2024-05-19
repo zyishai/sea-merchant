@@ -1,19 +1,23 @@
-import { px } from "~/utils";
-import { CenteredColumn, FlexRow, ImageIcon } from "../../primitives/styles.module.css";
+import React from "react";
+import { capitalize } from "~/utils";
 import { useShip } from "~/store/ship";
 import { products } from "~/store/product";
+import { Flex, Separator } from "@radix-ui/themes";
+import { IconLabel } from "../IconLabel";
 
-export function Goods() {
+function Goods() {
   const { goods } = useShip();
 
   return (
-    <CenteredColumn inline="start" gap={px(10)}>
-      {products.map((product) => (
-        <FlexRow key={product} inline="center">
-          <ImageIcon src={`/${product}.svg`} alt={product} size={px(32)} />
-          <span>{goods[product]} T</span>
-        </FlexRow>
+    <Flex align='center'>
+      {products.map((product, i) => (
+        <Flex align='center' mr={i === products.length-1 ? '0' : '2'} ml={i === 0 ? '0' : '1'}>
+          <IconLabel key={product} icon={`/${product}.svg`} alt={product} tooltip={capitalize(product)}>{goods[product]}</IconLabel>
+          {i < products.length-1 ? <Separator orientation='vertical' size='2' ml='4' style={{ backgroundColor: 'transparent' }} /> : null}
+        </Flex>
       ))}
-    </CenteredColumn>
+    </Flex>
   )
 }
+
+export default React.memo(Goods);

@@ -1,25 +1,25 @@
+import { Box, Flex, Heading } from "@radix-ui/themes";
 import { useWallet } from "~/store/wallet";
-import { BorderedCard, CenteredColumn, FlexRow, ImageIcon } from "../primitives/styles.module.css";
-import { px, rem } from "~/utils";
+import { IconLabel } from "./IconLabel";
+import { applyStyle } from "./styles.module.css";
+import React from "react";
 
-export default function FinancePanel() {
+function FinancePanel() {
   const wallet = useWallet();
 
   return (
-    <BorderedCard>
-      <CenteredColumn>
-        <h1 style={{ fontSize: rem(1.2) }}>Finances</h1>
-        <FlexRow gap={px(50)} padding={px(0)}>
-          <FlexRow gap={px(10)} inline='center'>
-            <ImageIcon src='/cash.svg' alt='Cash' size={px(32)} />
-            <span>${wallet.cash}</span>
-          </FlexRow>
-          <FlexRow gap={px(10)} inline='center'>
-            <ImageIcon src='/bank.svg' alt='Bank' size={px(32)} />
-            <span>${0}</span>
-          </FlexRow>
-        </FlexRow>
-      </CenteredColumn>
-    </BorderedCard>
+    <CustomCard>
+      <Flex direction='column' align='center' gap='3'>
+        <Heading size='5'>Finances</Heading>
+        <Flex direction='column' gap='2'>
+          <IconLabel icon='/cash.svg' alt='Cash' tooltip="Cash">${wallet.cash}</IconLabel>
+          <IconLabel icon='/bank.svg' alt='Bank' tooltip="Bank">${0}</IconLabel>
+        </Flex>
+      </Flex>
+    </CustomCard>
   )
 }
+
+const CustomCard = applyStyle('with_border_image', Box);
+
+export default React.memo(FinancePanel);

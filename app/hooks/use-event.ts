@@ -1,29 +1,27 @@
-import { on } from "@holycow/state";
-import { useEffect, useState } from "react"
-import { GameEvent, eventOccurred, eventResolved } from "~/store/event";
-import { useSchedulerStage } from "./use-scheduler-stage";
+import { useCallback, useEffect } from "react"
+import { eventOccurred, eventResolved } from "~/store/event";
+import { useSignal } from "./use-signal";
+import { useAnimationStage } from "~/components/AnimationStage";
 
 export const useEvent = () => {
-  const stage = useSchedulerStage();
-  const [event, setEvent] = useState<GameEvent|null>(null);
+  const [event, resetEvent] = useSignal(eventOccurred);
+  const getResolved = useCallback(() => true, []);
+  const [resolved, resetResolved] = useSignal(eventResolved, getResolved);
+  const animationStage = useAnimationStage();
 
   useEffect(() => {
-    const unsubscribeEventOccurred = on(eventOccurred, (event) => {
-      stage.on('event', () => {
-        if (event.type === 'nothing') {
-          event.onEventResolved();
-        } else {
-          setEvent(event);
-        }
-      }, { once: true });
-    });
-    const unsubscribeEventResolved = on(eventResolved, () => setEvent(null));
+    if (animationStage.current === 'event') {
+      if (event?.type === 'nothing') {
+        event.onEventResolved();
+      }
+  
+      if (!!resolved) {
+        resetEvent();
+        resetResolved();
+        animationStage.next();
+      }
+    }
+  }, [animationStage, resolved]);
 
-    return () => {
-      unsubscribeEventOccurred();
-      unsubscribeEventResolved();
-    };
-  }, []);
-
-  return event;
+  return animationStage.current === 'event' && event?.type !== 'nothing' ? event : undefined;
 }

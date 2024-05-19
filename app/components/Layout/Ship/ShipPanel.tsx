@@ -1,18 +1,20 @@
-import { BorderedCard, CenteredColumn, FlexRow } from "../../primitives/styles.module.css";
-import { px, rem } from "~/utils";
-import { Goods } from "./Goods";
+import Goods from "./Goods";
 import ShipProperties from "./ShipProperties";
+import { applyStyle } from "../styles.module.css";
+import { Box, Flex, Heading } from "@radix-ui/themes";
 
 export default function ShipPanel() {
   return (
-    <BorderedCard padding="30px 60px">
-      <CenteredColumn gap={px(15)} padding={px(0)}>
-        <h1 style={{ fontSize: rem(1.2) }}>Ship & Goods</h1>
-        <FlexRow gap={px(70)}>
+    <CustomCard>
+      <Flex direction='column' align='center' gap='3'>
+        <Heading size='5'>Ship & Goods</Heading>
+        <Flex direction='column' gap='7'>
           <ShipProperties />
           <Goods />
-        </FlexRow>
-      </CenteredColumn>
-    </BorderedCard>
+        </Flex>
+      </Flex>
+    </CustomCard>
   )
 }
+
+const CustomCard = applyStyle('with_border_image', Box);

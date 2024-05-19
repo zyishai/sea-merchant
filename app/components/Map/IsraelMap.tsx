@@ -16,14 +16,14 @@ export function IsraelMap() {
     <AnimatedMap location={israel}>
       <HireGuardShips onClose={goTo('turkey')}>
         <AbsoluteButton
-          variant='primary' 
+          variant='primary'
           color='blue'
           top={px(270)}>
             Go to Turkey
         </AbsoluteButton>
       </HireGuardShips>
       <HireGuardShips onClose={goTo('egypt')}>
-        <AbsoluteButton 
+        <AbsoluteButton
           variant='primary' 
           color='blue'
           bottom={px(270)}
