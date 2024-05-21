@@ -63,10 +63,11 @@ function prepareNewDay() {
   for (const locationName of Object.keys(useLocation.locations)) {
     const weather: Weather = random.choice(['calm', 'storm']) ?? 'calm';
     useLocation.set(`locations.${locationName}.weather`, weather);
-    useLocation.set(`locations.${locationName}.prices`, {
+    const newPrices = {
       copper: randInt(1200, 5000, 100),
       wheat: randInt(25, 100, 5),
       olive: randInt(250, 1000, 10)
-    });
+    };
+    useLocation.set(`locations.${locationName}.prices`, newPrices);
   }
 }

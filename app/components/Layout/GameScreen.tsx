@@ -1,21 +1,19 @@
-import { AbsolutePosition, Button, CenteredColumn } from '../primitives/styles.module.css';
+import { AbsolutePosition, CenteredColumn } from '../primitives/styles.module.css';
 import ShipPanel from './Ship/ShipPanel';
 import FinancePanel from './FinancePanel';
 import CurrentLocation from './CurrentLocation';
-import { MarketStatus } from './MarketStatus';
-import { StormEvent } from '../Event/Storm';
-import { AbandonedShipEvent } from '../Event/AbandonedShip';
-import { PiratesEvent } from '../Event/Pirates';
+import MarketStatus from './MarketStatus';
 import { Clock } from '../clock';
 import { px } from '~/utils';
 import { processCommand } from '~/store/signals';
 import { useEffect } from 'react';
-import { RestCommand, SailCommand } from '~/store/command';
-import { Repair } from './Repair';
+import { SailCommand } from '~/store/command';
 import { Alerts } from './Alerts';
 import { Container } from '@radix-ui/themes';
 import { AnimationStageProvider, useAnimationStage } from '~/components/AnimationStage';
 import { useSignal } from '~/hooks/use-signal';
+import ActionsPanel from './ActionsPanel';
+import Events from './Events';
 
 export function GameScreen() {
   return (
@@ -51,13 +49,7 @@ function GameLayout() {
           <Clock />
           <FinancePanel />
           <ShipPanel />
-          <Repair />
-          <Button
-            variant='primary'
-            color='gold'
-            size='big'
-            style={{alignSelf: 'center'}}
-            onClick={() => processCommand(new RestCommand)}>Rest until tomorrow</Button>
+          <ActionsPanel />
         </CenteredColumn>
       </AbsolutePosition>
 
@@ -69,9 +61,7 @@ function GameLayout() {
       </AbsolutePosition>
 
       {/* Events */}
-      <StormEvent />
-      <AbandonedShipEvent />
-      <PiratesEvent />
+      <Events />
     </Container>
   )
 }

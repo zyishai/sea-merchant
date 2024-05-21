@@ -13,7 +13,9 @@ export type GameEvent =
     onOffer: (product: Product, amount: number) => boolean; 
     onEscape: () => boolean; 
     onLost: () => Lost;
-    onEventResolved: (lost?: Lost) => Resolved
+    status?: 'won' | 'lost',
+    lost?: Lost,
+    onEventResolved: () => Resolved
   }
   | { type: 'abandonedShip', found: Found, onEventResolved: () => Resolved }
   | { type: 'nothing', onEventResolved: () => Resolved };

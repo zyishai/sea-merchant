@@ -35,7 +35,7 @@ color?: #000 --color
 .country_name {
   --color: #000;
   position: absolute;
-  top: 50%;
+  top: 25%;
   left: 50%;
   translate: -50% calc(-50% - 165px);
   font-size: 3rem;

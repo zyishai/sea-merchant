@@ -1,8 +1,9 @@
-import { applyStyle } from "./styles.module.css";
 import { motion, useAnimationControls, type Variants } from "framer-motion";
 import { GameLocation, useLocation } from "~/store/location";
 import { useAnimationStage } from "../AnimationStage";
 import { useEffect } from "react";
+import { Img } from "../Layout/styles.module.css";
+import { Box, Flex, Grid, Heading } from "@radix-ui/themes";
 
 const mapVariants: Variants = {
   hidden: {
@@ -24,48 +25,30 @@ const mapVariants: Variants = {
 const flagVariants: Variants = {
   hidden: {
     scale: 0,
-    translateY: 0
+    opacity: 0
   },
   visible: (custom: number) => ({
     scale: 1,
-    translateY: -300,
+    opacity: 1,
+    zIndex: 2,
     transition: { duration: custom - 0.5, delay: 0.5 }
   }),
   exit: (custom: number) => ({
     scale: 0,
-    translateY: 0,
-    transition: { duration: custom }
-  })
-};
-const countryNameVariants: Variants = {
-  hidden: {
-    opacity: 0
-  },
-  visible: (custom: number) => ({
-    opacity: 1,
-    transition: { duration: custom - 0.5, delay: 0.5 }
-  }),
-  exit: (custom: number) => ({
     opacity: 0,
     transition: { duration: custom }
   })
 };
-const childrenVariants: Variants = {
-  hidden: { opacity: 0 },
-  visible: (custom: number) => ({ opacity: 1, transition: { duration: custom - 0.5, delay: 0.5 } }),
-  exit: (custom: number) => ({ opacity: 0, transition: { duration: custom } })
-}
 
 interface Props extends React.PropsWithChildren {
   location: typeof useLocation['locations'][GameLocation];
 }
-export function AnimatedMap({ location, children }: Props) {
+export function AnimatedMap({ location }: Props) {
   const stage = useAnimationStage();
   const duration = 1;
   const controls = useAnimationControls();
 
   useEffect(() => {
-    console.log(location.name, stage.current);
     if (stage.current === 'leave') {
       controls.start('exit').finally(stage.next);
     } else if (stage.current === 'arrive') {
@@ -77,31 +60,26 @@ export function AnimatedMap({ location, children }: Props) {
 
 
   return (
-    <motion.div 
-      initial="hidden" 
-      animate={controls} 
-      style={{ perspective: 999 }}>
-      <motion.img
-        src={`/map-${location.name}.svg`}
-        variants={mapVariants}
-        custom={duration} />
-      <Flag
-        src={`/flag-${location.name}.svg`}
-        variants={flagVariants}
-        custom={duration} />
-      <CountryName
-        color={location.color}
-        variants={countryNameVariants}
-        custom={duration}>
-          {location.displayName}
-      </CountryName>
+    <Grid columns='1' rows='1' asChild>
       <motion.div 
-        variants={childrenVariants}
-        custom={duration}>{children}</motion.div>
-    </motion.div>
+        initial="hidden" 
+        animate={controls} 
+        style={{ perspective: 999 }}>
+        <Box gridRow='1' gridColumn='1' asChild>
+          <motion.img
+            src={`/map-${location.name}.svg`}
+            variants={mapVariants}
+            custom={duration} />
+        </Box>
+        <Box gridRow='1' gridColumn='1' asChild>
+          <motion.div variants={flagVariants} custom={duration}>
+            <Flex direction='column' align='center'>
+              <Img src={`/flag-${location.name}.svg`} alt={`${location.displayName} flag`} size='120px' />
+              <Heading size='8' color='blue' highContrast>{location.displayName}</Heading>
+            </Flex>
+          </motion.div>
+        </Box>
+      </motion.div>
+    </Grid>
   )
 }
-
-// const Map = applyStyle('map', motion.img);
-const Flag = applyStyle('map_flag', motion.img);
-const CountryName = applyStyle('country_name', motion.h1);

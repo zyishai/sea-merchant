@@ -1,31 +1,38 @@
-import { px } from "~/utils";
-import { ImageIcon } from "../primitives/styles.module.css";
-import { PriceTableGrid } from "./styles.module.css";
 import { useLocation } from "~/store/location";
+import { Grid, Text } from "@radix-ui/themes";
+import { Img } from "./styles.module.css";
 
-export function PriceTable({ style }: { style?: React.CSSProperties }) {
+export function PriceTable() {
   const { locations, currentLocation } = useLocation();
 
   return (
-    <PriceTableGrid style={style}>
+    <Grid columns='4' rows='4' gapX='5' gapY='4' px='6' pb='6' pt='3'>
       <div />
-      <ImageIcon src='/copper.svg' alt='Copper' size={px(32)} />
-      <ImageIcon src='/wheat.svg' alt='Wheat' size={px(32)} />
-      <ImageIcon src='/olive.svg' alt='Olive' size={px(32)} />
+      <Img src='/copper.svg' alt='Copper' size='32px' />
+      <Img src='/wheat.svg' alt='Wheat' size='32px' />
+      <Img src='/olive.svg' alt='Olive' size='32px' />
       {Object.values(locations).map((location) => ([
-        <strong 
+        <Text 
           key={location.name + '--name'}
-          style={{ color: location.name === currentLocation ? 'red' : 'unset' }}>{location.displayName}</strong>,
-        <div 
+          color={location.name === currentLocation ? 'red' : undefined}
+          weight='bold' 
+          size='4'>{location.displayName}</Text>,
+        <Text 
           key={location.name + '--copper'}
-          style={{ color: location.name === currentLocation ? 'red' : 'unset' }}>${location.prices.copper}</div>,
-        <div 
+          color={location.name === currentLocation ? 'red' : undefined}
+          weight='medium'
+          size='4'>${location.prices.copper}</Text>,
+        <Text 
           key={location.name + '--wheat'}
-          style={{ color: location.name === currentLocation ? 'red' : 'unset' }}>${location.prices.wheat}</div>,
-        <div 
+          color={location.name === currentLocation ? 'red' : undefined}
+          weight='medium'
+          size='4'>${location.prices.wheat}</Text>,
+        <Text 
           key={location.name + '--olive'}
-          style={{ color: location.name === currentLocation ? 'red' : 'unset' }}>${location.prices.olive}</div>
+          color={location.name === currentLocation ? 'red' : undefined}
+          weight='medium'
+          size='4'>${location.prices.olive}</Text>
       ]))}
-    </PriceTableGrid>
+    </Grid>
   )
 }

@@ -1,7 +1,8 @@
-import { Flex, Text, Tooltip } from "@radix-ui/themes";
+import { Flex, Slot, Text, Tooltip } from "@radix-ui/themes";
 import { Img } from "./styles.module.css";
 
-export function IconLabel({ icon, alt, tooltip, children }: React.PropsWithChildren<{icon: string, alt?: string, tooltip?: string}>) {
+export function IconLabel({ asChild, icon, alt, tooltip, children }: React.PropsWithChildren<{asChild?: boolean, icon: string, alt?: string, tooltip?: string}>) {
+  const Comp = asChild ? Slot : Text;
   return (
     <Flex gap='2' align='center'>
       {tooltip ? (<Tooltip content={tooltip} disableHoverableContent>
@@ -9,7 +10,7 @@ export function IconLabel({ icon, alt, tooltip, children }: React.PropsWithChild
       </Tooltip>) : (
         <Img src={icon} alt={alt} size='32px' />
       )}
-      <Text as='span'>{children}</Text>
+      <Comp as='span'>{children}</Comp>
     </Flex>
   )
 }

@@ -1,14 +1,19 @@
-import { rem } from "~/utils";
-import { BorderedCard, CenteredColumn } from "../primitives/styles.module.css";
 import { PriceTable } from "./PriceTable";
+import { applyStyle } from "./styles.module.css";
+import { Box, Flex, Heading } from "@radix-ui/themes";
+import React from "react";
 
-export function MarketStatus() {
+function MarketStatus() {
   return (
-    <BorderedCard>
-      <CenteredColumn padding='15px 5px'>
-        <h1 style={{ fontSize: rem(1.2) }}>Market Status</h1>
-        <PriceTable style={{ padding: '0 35px 20px 35px', fontSize: rem(0.9) }} />
-      </CenteredColumn>
-    </BorderedCard>
+    <CustomCard>
+      <Flex direction='column' align='center' gap='3'>
+        <Heading size='5' mt='2'>Market Status</Heading>
+        <PriceTable />
+      </Flex>
+    </CustomCard>
   )
 }
+
+const CustomCard = applyStyle('with_border_image', Box);
+
+export default React.memo(MarketStatus);

@@ -13,6 +13,8 @@ export const sailWarning = createSignal<(message: string, options?: {error?: boo
 export const buyWarning = createSignal<(message: string, options?: {error?: boolean}) => void>();
 export const sellWarning = createSignal<(message: string, options?: {error?: boolean}) => void>();
 export const repairWarning = createSignal<(message: string, options?: {error?: boolean}) => void>();
+export const depositWarning = createSignal<(message: string, options?: {error?: boolean}) => void>();
+export const withdrawalWarning = createSignal<(message: string, options?: {error?: boolean}) => void>();
 
 // game.ts
 export const gameStarted = createSignal();

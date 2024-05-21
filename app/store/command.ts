@@ -5,7 +5,7 @@ import { GameLocation, useLocation } from './location';
 import { useWallet } from './wallet';
 import { useShip } from './ship';
 import { Product, products } from './product';
-import { guardShipsWarning, sailWarning, buyWarning, sellWarning, repairWarning, locationChanged } from './signals';
+import { guardShipsWarning, sailWarning, buyWarning, sellWarning, repairWarning, locationChanged, depositWarning, withdrawalWarning } from './signals';
 
 export interface Command {
   readonly time: number;
@@ -84,6 +84,8 @@ export class SailCommand implements Command {
       ] as const).filter(Boolean));
       switch(choice) {
         case 'pirates': {
+          let _status:undefined|'won'|'lost' = undefined;
+          let _lost:Lost|undefined = undefined;
           let offeredProduct: Product|undefined = undefined;
           let offeredAmount: number|undefined = undefined;
 
@@ -92,18 +94,30 @@ export class SailCommand implements Command {
             onFight() {
               const { guardShips } = useShip;
               const piratesPower = random.int(6, 20);
-              return guardShips*2+1 >= piratesPower; // at least 3 to win
+              const result = guardShips*2+1 >= piratesPower; // at least 3 to win
+              _status = result ? 'won' : 'lost';
+              return result;
             },
             onEscape() {
               const { guardShips } = useShip;
               const piratesPower = random.int(0, 15);
-              return guardShips+3 >= piratesPower; // no minimum to win
+              const result = guardShips+3 >= piratesPower; // no minimum to win
+              _status = result ? 'won' : 'lost';
+              return result;
             },
             onOffer(product, amount) {
               offeredProduct = product;
               offeredAmount = amount;
               const hasEnough = useShip.goods[product] >= amount;
-              return hasEnough && random.boolean();
+              const result = hasEnough && random.boolean();
+              _status = result ? 'won' : 'lost';
+              return result;
+            },
+            get status() {
+              return _status;
+            },
+            get lost() {
+              return _lost;
             },
             onLost() {
               const availableProducts = products.filter((product) => (
@@ -119,19 +133,22 @@ export class SailCommand implements Command {
                   : random.int(1, useShip.goods[type]);
               const damage = random.bool() ? random.int(0, 30) : undefined;
 
-              return {
+              _lost = {
                 type,
                 amount,
                 damage
               } as Lost;
+              return _lost;
             },
-            onEventResolved(lost) {
-              if (lost) {
-                const { type, damage } = lost;
-                if (type === 'money') {
-                  useWallet.set('cash', cash => cash - lost.amount);
+            onEventResolved() {
+              if (_lost) {
+                const { type, damage } = _lost;
+                if (_lost.type === 'money') {
+                  const { amount } = _lost;
+                  useWallet.set('cash', cash => cash - amount);
                 } else if (type !== 'nothing') {
-                  useShip.set(`goods.${type}`, tons => tons - lost.amount);
+                  const { amount } = _lost;
+                  useShip.set(`goods.${type}`, tons => tons - amount);
                 }
                 if (typeof damage === 'number' && damage > 0) {
                   useShip.set('damage', d => d + damage);
@@ -201,43 +218,42 @@ export class SailCommand implements Command {
 export class BuyCommand implements Command {
   time = 0;
 
-  constructor(private readonly product: Product, private readonly quantity: number) {}
-  static new(product: Product, quantity: number) {
-    return new BuyCommand(product, quantity);
-  }
+  constructor(private readonly spec: Partial<Record<Product, number>>) {}
 
   execute(): void {
-    const cost = useLocation.current.prices[this.product] * this.quantity;
-    if (useWallet.cash < cost) {
+    const totalCost = (Object.entries(this.spec) as [Product, number][]).reduce((sum, [product, quantity]) => sum + useLocation.current.prices[product] * quantity, 0);
+    if (useWallet.cash < totalCost) {
       buyWarning('You don\'t have enough cash to make this purchase.');
       return;
     }
-    if (useShip.volume + this.quantity > useShip.capacity) {
+    const totalQuantity = Object.values(this.spec).reduce((sum, quantity) => sum + quantity);
+    if (useShip.volume + totalQuantity > useShip.capacity) {
       buyWarning('You don\'t have enough free space on your ship.');
       return;
     }
 
-    useShip.set(`goods.${this.product}`, tons => tons + this.quantity);
-    useWallet.set('cash', cash => cash - cost);
+    for (const [product, quantity] of Object.entries(this.spec) as [Product, number][]) {
+      useShip.set(`goods.${product}`, tons => tons + quantity);
+    }
+    useWallet.set('cash', cash => cash - totalCost);
   }
 }
 
 export class SellCommand implements Command {
   time = 0;
 
-  constructor(private readonly product: Product, private readonly quantity: number) {}
-  static new(product: Product, quantity: number) {
-    return new SellCommand(product, quantity);
-  }
+  constructor(private readonly spec: Partial<Record<Product, number>>) {}
 
   execute(): void {
-    if (useShip.goods[this.product] < this.quantity) {
-      sellWarning(`You don\'t have enough ${this.product}.`);
+    if ((Object.entries(this.spec) as [Product, number][]).some(([product, quantity]) => useShip.goods[product] < quantity)) {
+      sellWarning(`You don\'t have enough cargo to make this sell.`);
       return;
     }
-
-    const profit = useLocation.current.prices[this.product] * this.quantity;
-    useShip.set(`goods.${this.product}`, tons => tons - this.quantity);
+    
+    const profit = (Object.entries(this.spec) as [Product, number][]).reduce((sum, [product, quantity]) => sum + useLocation.current.prices[product] * quantity, 0);
+    for (const [product, quantity] of Object.entries(this.spec) as [Product, number][]) {
+      useShip.set(`goods.${product}`, tons => tons - quantity);
+    }
     useWallet.set('cash', cash => cash + profit);
   }
 }
@@ -255,12 +271,12 @@ export class RestCommand implements Command {
   }
 }
 
-export class RepairDamage implements Command {
+export class RepairDamageCommand implements Command {
   time = 0;
 
   constructor(private readonly amount: number) {}
   static new(amount: number) {
-    return new RepairDamage(amount);
+    return new RepairDamageCommand(amount);
   }
 
   execute(): void {
@@ -272,5 +288,41 @@ export class RepairDamage implements Command {
 
     useWallet.set('cash', cash => cash - cost);
     useShip.set('damage', damage => damage - this.amount);
+  }
+}
+
+export class DepositCommand implements Command {
+  time = 0;
+
+  constructor(private readonly amount: number) {}
+
+  execute(): void {
+    if (useWallet.cash < this.amount) {
+      depositWarning("You don't have enough cash for this operation.");
+      return;
+    }
+
+    useWallet.set({
+      cash: useWallet.cash - this.amount,
+      bank: useWallet.bank + this.amount
+    });
+  }
+}
+
+export class WithdrawalCommand implements Command {
+  time = 0;
+
+  constructor(private readonly amount: number) {}
+
+  execute(): void {
+    if (useWallet.bank < this.amount) {
+      withdrawalWarning("You don't have enough money in the bank for this operation.");
+      return;
+    }
+
+    useWallet.set({
+      cash: useWallet.cash + this.amount,
+      bank: useWallet.bank - this.amount
+    });
   }
 }

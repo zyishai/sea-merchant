@@ -13,7 +13,7 @@ function FinancePanel() {
         <Heading size='5'>Finances</Heading>
         <Flex direction='column' gap='2'>
           <IconLabel icon='/cash.svg' alt='Cash' tooltip="Cash">${wallet.cash}</IconLabel>
-          <IconLabel icon='/bank.svg' alt='Bank' tooltip="Bank">${0}</IconLabel>
+          <IconLabel icon='/bank.svg' alt='Bank' tooltip="Bank">${wallet.bank}</IconLabel>
         </Flex>
       </Flex>
     </CustomCard>

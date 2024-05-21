@@ -13,7 +13,7 @@ export const meta: MetaFunction = () => {
 
 export default function Index() {
   const gameState = useGame('state');
-  
+
   return ([
     gameState === 'unset' ? <OpeningScreen key="opening" /> : null,
     gameState === 'started' ? <GameScreen key="game" /> : null,
